@@ -3,15 +3,21 @@ import pickle
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import os
 
 
 # Suppress warnings
 import warnings
 warnings.filterwarnings("ignore")
 
+# Get path relative to current script
+BASE_DIR = os.path.dirname(__file__)
+pickle_path = os.path.join(BASE_DIR, "decision_tree_airline.pickle")
 
-dt_pickle = open('decision_tree_airline.pickle', 'rb') 
-clf = pickle.load(dt_pickle) 
+# Load the classifier
+with open(pickle_path, "rb") as dt_pickle:
+#dt_pickle = open('decision_tree_airline.pickle', 'rb') 
+    clf = pickle.load(dt_pickle) 
 dt_pickle.close()
 default_df = pd.read_csv('airline.csv')
 default_df = default_df.dropna().reset_index(drop = True)
